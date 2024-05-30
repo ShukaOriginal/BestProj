@@ -165,9 +165,6 @@ function drop(ev) {
           destinationSquare.removeChild(children[i]);
         }
     }
-    // while (destinationSquare.firstChild) {
-    //   destinationSquare.removeChild(destinationSquare.firstChild);
-    // }
     destinationSquare.appendChild(piece);
     isWhiteTurn = !isWhiteTurn;
     updateBoardSquaresArray(
@@ -785,7 +782,6 @@ function getAllPossibleMoves(squaresArray, color) {
       const { pieceColor,pieceType,pieceId } = getPieceAtSquare(square.squareId,squaresArray);
       if (pieceId === "blank") return [];
 
-      //const piece = document.getElementById(pieceId);
       let squaresArrayCopy = deepCopyArray(squaresArray);
       const pieceObject ={pieceColor:pieceColor,pieceType:pieceType,pieceId:pieceId}
 
