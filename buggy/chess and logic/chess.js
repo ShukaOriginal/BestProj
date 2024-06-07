@@ -99,12 +99,14 @@ function dragDrop(e) {
 
 // ходы фигур
 function checkIfValid(target) {
-    const targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
+    const              targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
     const startId = Number(startPostitionId)
     const piece = draggedELement.id
     console.log('targetId', targetId)
     console.log('startId', startId)
     console.log('piece', piece)
+    let kingHasMoved = false;
+    let rookHasMoved = { left: false, right: false };
 
     switch(piece) {
         case 'pawn' :
@@ -119,19 +121,19 @@ function checkIfValid(target) {
             }
             break;
             case 'knight':
-                if (
-                    startId + width * 2 - 1 ||
-                    startId + width * 2 - 1 ||
-                    startId + width - 2 ||
-                    startId + width + 2 ||
-                    startId - width * 2 - 1 ||
-                    startId - width * 2 - 1 ||
-                    startId - width - 2 ||
-                    startId - width + 2
-                ) {
-                    return true
-                }
-                break;
+                    if (
+                 targetId === startId + width * 2 + 1 ||
+                 targetId === startId + width * 2 - 1 ||
+                 targetId === startId + width + 2 ||
+                 targetId === startId + width - 2 ||
+                 targetId === startId - width * 2 + 1 ||
+                 targetId === startId - width * 2 - 1 ||
+                 targetId === startId - width + 2 ||
+                 targetId === startId - width - 2
+             ) {
+                    return true;
+              }            
+             break;
                 case 'bishop':
                     if (startId + width + 1 === targetId ||
                         startId + width * 2 + 2 === targetId && !document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild ||
@@ -202,6 +204,7 @@ function checkIfValid(target) {
                         startId - 6 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild &&  !document.querySelector(`[square-id="${startId - 3}"]`).firstChild &&  !document.querySelector(`[square-id="${startId - 4}"]`).firstChild &&  !document.querySelector(`[square-id="${startId - 5}"]`).firstChild ||
                         startId - 7 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild &&  !document.querySelector(`[square-id="${startId - 3}"]`).firstChild &&  !document.querySelector(`[square-id="${startId - 4}"]`).firstChild &&  !document.querySelector(`[square-id="${startId - 5}"]`).firstChild &&  !document.querySelector(`[square-id="${startId - 6}"]`).firstChild
                         ) {
+                            rookHasMoved = true;
                             return true; 
                         }
                         break;
@@ -274,20 +277,62 @@ function checkIfValid(target) {
                             return true;
                         }
                         break;
-                    case 'king':
-                        if (
-                            startId + 1 === targetId ||
-                            startId - 1 === targetId ||
-                            startId + width === targetId ||
-                            startId - width === targetId ||
-                            startId + width + 1 === targetId ||
-                            startId + width - 1 === targetId ||
-                            startId - width + 1 === targetId ||
-                            startId -width - 1 === targetId 
-                        ) {
-                            return true;
-                        }
+                        case 'king':
+            if (
+                startId + 1 === targetId ||
+                startId - 1 === targetId ||
+                startId + width === targetId ||
+                startId - width === targetId ||
+                startId + width + 1 === targetId ||
+                startId + width - 1 === targetId ||
+                startId - width + 1 === targetId ||
+                startId - width - 1 === targetId 
+            ) {
+                kingHasMoved = true;
+                return true;
+            }
+
+            if (kingHasMoved === false) {
+                // Правая рокировка
+                if (
+                    (startId + 2 === targetId) &&
+                    !document.querySelector(`[square-id="${startId + 1}"]`).firstChild &&
+                    !document.querySelector(`[square-id="${startId + 2}"]`).firstChild &&
+                    rookHasMoved.right === false
+                ) {
+                    let rookStartId = startId + 3;
+                    let rookTargetId = startId + 1;
+                    let rook = document.querySelector(`[square-id="${rookStartId}"]`).firstChild;
+                    document.querySelector(`[square-id="${rookStartId}"]`).removeChild(rook);
+                    document.querySelector(`[square-id="${rookTargetId}"]`).appendChild(rook);
+
+                    kingHasMoved = true;
+                    rookHasMoved.right = true;
+                    return true;
+                }
+
+                // Левая рокировка
+                if (
+                    (startId - 2 === targetId) &&
+                    !document.querySelector(`[square-id="${startId - 1}"]`).firstChild &&
+                    !document.querySelector(`[square-id="${startId - 2}"]`).firstChild &&
+                    !document.querySelector(`[square-id="${startId - 3}"]`).firstChild &&
+                    rookHasMoved.left === false
+                ) {
+                    let rookStartId = startId - 4;
+                    let rookTargetId = startId - 1;
+                    let rook = document.querySelector(`[square-id="${rookStartId}"]`).firstChild;
+                    document.querySelector(`[square-id="${rookStartId}"]`).removeChild(rook);
+                    document.querySelector(`[square-id="${rookTargetId}"]`).appendChild(rook);
+
+                    kingHasMoved = true;
+                    rookHasMoved.left = true;
+                    return true;
+                }
+            }
+            break;
     }
+    return false;
 }
 
 //переключение игрока после хода
