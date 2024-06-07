@@ -95,6 +95,7 @@ function dragDrop(e) {
     }
     
 }
+let kingHasMoved = false;
 
 
 // ходы фигур
@@ -105,7 +106,6 @@ function checkIfValid(target) {
     console.log('targetId', targetId)
     console.log('startId', startId)
     console.log('piece', piece)
-    let kingHasMoved = false;
     let rookHasMoved = { left: false, right: false };
 
     switch(piece) {
