@@ -1,3 +1,4 @@
+/* Центрируем доску на экране */
 body {
   display: flex;
   justify-content: center;
@@ -5,46 +6,54 @@ body {
   height: 100vh;
   margin: 0;
 }
+
+/* Увеличиваем размер доски */
 #gameboard {
-  width: 320px;
-  height: 320px;
+  width: 480px;
+  height: 480px;
   background-color: black;
   display: flex;
   flex-wrap: wrap;
 }
 
+/* Увеличиваем размер клеток */
 .square {
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
   position: relative;
 }
 
+/* Увеличиваем размер SVG-элементов */
 .square svg {
-  height: 30px;
-  width: 30px;
+  height: 50px;
+  width: 50px;
   margin: 5px;
   position: relative;
   z-index: -9;
 }
 
+/* Позиционируем элементы относительно */
 path {
   position: relative;
   z-index: -10;
 }
 
+/* Задаем относительное позиционирование фигур */
 .piece {
   position: relative;
   z-index: 9;
 }
 
+/* Цвета клеток */
 .beige {
-  background-color:  rgb(110, 110, 98);
+  background-color: rgb(110, 110, 98);
 }
 
 .brown {
   background-color: rgb(169, 43, 43);
 }
 
+/* Цвета фигур */
 .black {
   fill: black;
 }
