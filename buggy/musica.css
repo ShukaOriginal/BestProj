@@ -1,0 +1,108 @@
+/* Основные настройки для панели управления музыкой */
+.control-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #efefef;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.button-group {
+    display: flex;
+    gap: 5px;  /* Пробел между кнопками */
+    margin-bottom: 10px;  /* Отступ снизу для метки и ползунка */
+}
+
+button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: white;
+    color: green;
+    border: 2px solid green;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;  /* Пробел между меткой и ползунком */
+}
+
+label {
+    font-size: 14px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: green;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: white;
+    border: 2px solid green;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: green;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    background: white;
+    border: 2px solid green;
+}
+
+input[type="range"]::-ms-thumb {
+    width: 15px;
+    height: 15px;
+    background: green;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="range"]::-ms-thumb:hover {
+    background: white;
+    border: 2px solid green;
+}
+
+
+
+
