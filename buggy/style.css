@@ -6,8 +6,23 @@ body {
   height: 100vh;
   margin: 0;
 }
+/*Шапка*/
+header {
+  width: 100%;
+ position: fixed;
+ top: -10px;
+ left: 0;
+ z-index: 1000;
+ padding: 10px 0;
+}
+.header-image{
+ display: block;
+ width: 100%;
+ height: auto;
+ object-fit: cover;
+}
 
-/* Увеличиваем размер доски */
+
 #gameboard {
   width: 480px;
   height: 480px;
@@ -16,14 +31,14 @@ body {
   flex-wrap: wrap;
 }
 
-/* Увеличиваем размер клеток */
+
 .square {
   height: 60px;
   width: 60px;
   position: relative;
 }
 
-/* Увеличиваем размер SVG-элементов */
+
 .square svg {
   height: 50px;
   width: 50px;
