@@ -46,7 +46,7 @@ const allSquares = document.querySelectorAll(".square");
 
 function spawnPiece(piece) {
     const emptySquare = [...allSquares].find(square => !square.innerHTML.trim());
-    if (emptySquare) {
+    if (emptySquare && playerGo === 'black') {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = piece;
         const pieceElement = tempDiv.firstChild;
@@ -54,6 +54,14 @@ function spawnPiece(piece) {
         pieceElement.classList.add('piece');
         emptySquare.appendChild(pieceElement);
         emptySquare.firstChild.firstChild.classList.add('black')
+    } else if (emptySquare && playerGo === 'white') {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = piece;
+        const pieceElement = tempDiv.firstChild;
+        pieceElement.setAttribute('draggable', true);
+        pieceElement.classList.add('piece');
+        emptySquare.appendChild(pieceElement);
+        emptySquare.firstChild.firstChild.classList.add('white')
     }
 }
 
@@ -63,7 +71,6 @@ document.getElementById('spawn-rook').addEventListener('click', () => spawnPiece
 document.getElementById('spawn-knight').addEventListener('click', () => spawnPiece(knight));
 document.getElementById('spawn-bishop').addEventListener('click', () => spawnPiece(bishop));
 document.getElementById('spawn-queen').addEventListener('click', () => spawnPiece(queen));
-document.getElementById('spawn-king').addEventListener('click', () => spawnPiece(king));
 
 //индифмкатор ходов что выводит в консоль БРАУЗЕРА
 
@@ -171,10 +178,10 @@ function checkIfValid(target) {
     switch(piece) {
         case 'pawn' :
             if (
-                starterRow.includes(startId) && startId + width * 2 === targetId ||
-                startId + width === targetId ||
-                startId + width - 1 === targetId && document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild ||
-                startId + width + 1 === targetId && document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild
+                (startId + width === targetId && !document.querySelector(`[square-id="${targetId}"]`).firstChild) ||
+                (starterRow.includes(startId) && startId + width * 2 === targetId && !document.querySelector(`[square-id="${targetId}"]`).firstChild) ||
+                (startId + width - 1 === targetId && document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild) ||
+                (startId + width + 1 === targetId && document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild)
             ) {
                 return true
             }
