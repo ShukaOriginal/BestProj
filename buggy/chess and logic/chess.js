@@ -7,14 +7,14 @@ playerDisplay.textContent = 'black'
 const starterRow = [8,9,11,12,13,14,15]
 
 const startPieces = [
-    rookBlack, knightBlack, bishopBlack, queenBlack, kingBlack, bishopBlack, knightBlack, rookBlack,
-    pawnBlack, pawnBlack, pawnBlack, pawnBlack, pawnBlack, pawnBlack, pawnBlack, pawnBlack, 
+    rook, knight, bishop, queen, king, bishop, knight, rook,
+    pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn, 
     '', '', '', '', '', '', '', '', 
     '', '', '', '', '', '', '', '', 
     '', '', '', '', '', '', '', '', 
     '', '', '', '', '', '', '', '', 
-    pawnWhite, pawnWhite, pawnWhite, pawnWhite, pawnWhite, pawnWhite, pawnWhite, pawnWhite, 
-    rookWhite, knightWhite, bishopWhite, queenWhite, kingWhite, bishopWhite, knightWhite, rookWhite
+    pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn, 
+    rook, knight, bishop, queen, king, bishop, knight, rook
 ]
 //создание доски с фигурами
 function createBoard() {
@@ -42,10 +42,32 @@ function createBoard() {
 }
 createBoard()
 
+const allSquares = document.querySelectorAll(".square");
+
+function spawnPiece(piece) {
+    const emptySquare = [...allSquares].find(square => !square.innerHTML.trim());
+    if (emptySquare) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = piece;
+        const pieceElement = tempDiv.firstChild;
+        pieceElement.setAttribute('draggable', true);
+        pieceElement.classList.add('piece');
+        emptySquare.appendChild(pieceElement);
+        emptySquare.firstChild.firstChild.classList.add('black')
+    }
+}
+
+// Добавляем обработчики событий для кнопок
+document.getElementById('spawn-pawn').addEventListener('click', () => spawnPiece(pawn));
+document.getElementById('spawn-rook').addEventListener('click', () => spawnPiece(rook));
+document.getElementById('spawn-knight').addEventListener('click', () => spawnPiece(knight));
+document.getElementById('spawn-bishop').addEventListener('click', () => spawnPiece(bishop));
+document.getElementById('spawn-queen').addEventListener('click', () => spawnPiece(queen));
+document.getElementById('spawn-king').addEventListener('click', () => spawnPiece(king));
 
 //индифмкатор ходов что выводит в консоль БРАУЗЕРА
 
-const allSquares = document.querySelectorAll(".square")
+
 
 allSquares.forEach(square => {
     square.addEventListener('dragstart', dragStart)
@@ -138,12 +160,13 @@ const checkClearPathBishop = (startId, targetId, width) => {
 
 // ходы фигур
 function checkIfValid(target) {
-    const              targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
-    const startId = Number(startPositionId)
-    const piece = draggedELement.id
-    console.log('targetId', targetId)
-    console.log('startId', startId)
-    console.log('piece', piece)
+    const targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'));
+    const startId = Number(startPositionId);
+    const piece = draggedELement.id;
+
+    console.log('Checking validity for piece:', piece);
+    console.log('Start position:', startId);
+    console.log('Target position:', targetId);
 
     switch(piece) {
         case 'pawn' :
@@ -405,63 +428,14 @@ function revertIds() {
 function checkForWin() {
     const kings = Array.from(document.querySelectorAll('#king'))
     console.log(kings)
-    if (!kings.some(kingWhite => kingWhite.firstChild.classList.contains('white'))) {
+    if (!kings.some(king => king.firstChild.classList.contains('white'))) {
         infoDisplay.innerHTML = "Black player wins!"
         const allSquares = document.querySelectorAll('.square')
         allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
     }
-    if (!kings.some(kingBlack => kingBlack.firstChild.classList.contains('black'))) {
+    if (!kings.some(king => king.firstChild.classList.contains('black'))) {
         infoDisplay.innerHTML = "White player wins!"
         const allSquares = document.querySelectorAll('.square')
         allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
     }
 }
-
-function buyPiece() {
-    const piece = draggedELement.id
-    const pieceSymbol = getPieceSymbol(piece);
-    const positions = getInitialPositions(piece, playerGo);
-
-    const availablePositions = positions.filter(pos => {
-        const square = document.querySelector(`[square-id='${pos}']`);
-        return square && square.innerHTML.trim() === '';
-    });
-
-    if (availablePositions.length > 0) {
-        const randomPosition = availablePositions[Math.floor(Math.random() * availablePositions.length)];
-        spawnPiece(pieceSymbol, randomPosition);
-    } else {
-        alert('No space available for this piece.');
-    }
-}
-
-function getPieceSymbol(piece) {
-    switch (piece) {
-        case 'pawn': return playerGo === 'black' ? pawnBlack : pawnWhite;
-        case 'rook': return playerGo === 'black' ? rookBlack : rookWhite;
-        case 'knight': return playerGo === 'black' ? knightBlack : knightWhite;
-        case 'bishop': return playerGo === 'black' ? bishopBlack : bishopWhite;
-        case 'queen': return playerGo === 'black' ? queenBlack : queenWhite;
-        default: return '';
-            }
-        }
-
-        function getInitialPositions(piece) {
-            const positions = {
-                pawn: playerGo === 'black' ? starterRow : [48, 49, 50, 51, 52, 53, 54, 55],
-                rook: playerGo === 'black' ? [0, 7] : [56, 63],
-                knight: playerGo === 'black' ? [1, 6] : [57, 62],
-                bishop: playerGo === 'black' ? [2, 5] : [58, 61],
-                queen: playerGo === 'black' ? [3] : [59],
-                king: playerGo === 'black' ? [4] : [60]
-            };
-            return positions[piece];
-        }
-
-        function spawnPiece(pieceSymbol, position) {
-            const square = document.querySelector(`[square-id='${position}']`);
-            if (square) {
-                square.innerHTML = pieceSymbol;
-                square.firstChild?.classList.add(playerGo);
-            }
-        }
