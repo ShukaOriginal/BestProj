@@ -5,6 +5,15 @@ const width = 8
 let playerGo = 'black'
 playerDisplay.textContent = 'black'
 const starterRow = [8,9,11,12,13,14,15]
+let moneyWhite = 100;
+const prices = {
+    'pawn': 3,
+    'rook': 7,
+    'knight': 5,
+    'bishop': 5,
+    'queen': 11,
+}
+let moneyBlack = 100;
 
 const startPieces = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -46,31 +55,64 @@ const allSquares = document.querySelectorAll(".square");
 
 function spawnPiece(piece) {
     const emptySquare = [...allSquares].find(square => !square.innerHTML.trim());
-    if (emptySquare && playerGo === 'black') {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = piece;
-        const pieceElement = tempDiv.firstChild;
-        pieceElement.setAttribute('draggable', true);
-        pieceElement.classList.add('piece');
-        emptySquare.appendChild(pieceElement);
-        emptySquare.firstChild.firstChild.classList.add('black')
-    } else if (emptySquare && playerGo === 'white') {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = piece;
-        const pieceElement = tempDiv.firstChild;
-        pieceElement.setAttribute('draggable', true);
-        pieceElement.classList.add('piece');
-        emptySquare.appendChild(pieceElement);
-        emptySquare.firstChild.firstChild.classList.add('white')
+    if (!emptySquare) {
+        alert('Нет свободных клеток.');
+        return;
+    }
+
+    if (playerGo === 'black') {
+        if (moneyBlack < prices[piece]) {
+            alert('нет хватает:(');
+            return;
+        }
+        moneyBlack -= prices[piece];
+    } else if (playerGo === 'white') {
+        if (moneyWhite < prices[piece]) {
+            alert('нет хватает:(');
+            return;
+        }
+        moneyWhite -= prices[piece];
+    }
+
+    const tempDiv = document.createElement('div');
+    let pieceContent;
+
+    if (piece === 'pawn') {
+        pieceContent = pawn;
+    } else if (piece === 'rook') {
+        pieceContent = rook;
+    } else if (piece === 'knight') {
+        pieceContent = knight;
+    } else if (piece === 'bishop') {
+        pieceContent = bishop;
+    } else if (piece === 'queen') {
+        pieceContent = queen;
+    } else {
+        alert('Неверный тип фигуры.');
+        return;
+    }
+
+    tempDiv.innerHTML = pieceContent;
+    const pieceElement = tempDiv.firstChild;
+    pieceElement.setAttribute('draggable', true);
+    pieceElement.classList.add('piece');
+    emptySquare.appendChild(pieceElement);
+    
+    if (playerGo === 'black') {
+        emptySquare.firstChild.firstChild.classList.add('black');
+    } else if (playerGo === 'white') {
+        emptySquare.firstChild.firstChild.classList.add('white');
     }
 }
 
+
+
 // Добавляем обработчики событий для кнопок
-document.getElementById('spawn-pawn').addEventListener('click', () => spawnPiece(pawn));
-document.getElementById('spawn-rook').addEventListener('click', () => spawnPiece(rook));
-document.getElementById('spawn-knight').addEventListener('click', () => spawnPiece(knight));
-document.getElementById('spawn-bishop').addEventListener('click', () => spawnPiece(bishop));
-document.getElementById('spawn-queen').addEventListener('click', () => spawnPiece(queen));
+document.getElementById('spawn-pawn').addEventListener('click', () => spawnPiece('pawn'));
+document.getElementById('spawn-rook').addEventListener('click', () => spawnPiece('rook'));
+document.getElementById('spawn-knight').addEventListener('click', () => spawnPiece('knight'));
+document.getElementById('spawn-bishop').addEventListener('click', () => spawnPiece('bishop'));
+document.getElementById('spawn-queen').addEventListener('click', () => spawnPiece('queen'));
 
 //индифмкатор ходов что выводит в консоль БРАУЗЕРА
 
