@@ -14,6 +14,7 @@ const prices = {
   queen: 11,
 };
 let moneyBlack = 100;
+//--
 // prettier-ignore
 const startPieces = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -59,8 +60,6 @@ function spawnPiece(piece) {
       .reverse()
       .find((square) => !square.innerHTML.trim());
   }
-
-  console.log(emptySquare);
 
   if (!emptySquare) {
     alert('Нет свободных клеток.');
