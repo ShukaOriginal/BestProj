@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Board</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="senya.css">
+</head>
+<body>
+  <div class="container-timer containerW">
+    <div class="white-timer" id="timer1">05:00</div>
+    <div class="button-container">
+      <button onclick="toggleTimer(1)">Player 1</button>
+    </div>
+    <div class="empty-block"></div>
+  </div>
+  <div class="container-timer containerB">
+    <div class="empty-block"></div>
+    <div class="black-timer" id="timer2">05:00</div>
+    <div class="button-container">
+      <button onclick="toggleTimer(2)">Player 2</button>
+    </div>
+  </div>
+  <script src="senya.js"></script>
+</body>
+</html>
