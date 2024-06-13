@@ -1,0 +1,28 @@
+/*
+.possible-move {
+    background-color: rgba(0, 255, 0, 0.3); /* Полупрозрачный зеленый цвет */
+
+/*в стили ксс тоже добавила*/
+
+/*#chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px);
+}
+    
+.square.black {
+  background-color: #769656;
+}
+
+.square.white {
+  background-color: #eeeed2;
+}
+
+.possible-move {
+  background-color: rgba(0, 255, 0, 0.3);
+}
+
+.piece {
+  font-size: 30px;
+}
+*/
