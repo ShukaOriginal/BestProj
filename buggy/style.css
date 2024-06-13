@@ -5,6 +5,23 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
+  background-color: linen;
+}
+container {
+  background-color: white;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+main-content {
+  z-index: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /*Шапка*/
 body {
@@ -177,4 +194,27 @@ path {
 
 .white {
   fill: white;
+}
+.messenger-links {
+  position: fixed;
+ bottom: 50px;
+ left: 10px;
+ display: flex;
+ gap: 10px;
+}
+
+.messenger-links a {
+ width: 50px;
+ height: 1px;
+ text-decoration: none;
+}
+
+.messenger-links a img {
+ width: 100%;
+ height: auto;
+ transition: transform 0.3s ease;
+}
+
+.messenger-links a:hover img {
+ transform: scale(1.1);
 }
