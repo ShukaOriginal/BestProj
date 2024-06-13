@@ -4,7 +4,7 @@ const infoDisplay = document.querySelector('#info-display');
 const width = 8;
 let playerGo = 'black';
 playerDisplay.textContent = 'black';
-const starterRow = [8, 9, 11, 12, 13, 14, 15];
+const starterRow = [8, 9, 10, 11, 12, 13, 14, 15];
 let moneyWhite = 100;
 const prices = {
   pawn: 3,
@@ -72,12 +72,20 @@ function spawnPiece(piece) {
       return;
     }
     moneyBlack -= prices[piece];
-  } else if (playerGo === 'white') {
+    updateMoney('moneyBlack', moneyBlack);
+ }
+
+  else if (playerGo === 'white') {
     if (moneyWhite < prices[piece]) {
       alert('нет хватает:(');
       return;
     }
     moneyWhite -= prices[piece];
+    updateMoney('moneyWhite', moneyWhite);
+  }
+  function dragStart(e) {
+    startPositionId = e.target.parentNode.getAttribute('square-id');
+    draggedELement = e.target;
   }
 
   const tempDiv = document.createElement('div');
@@ -110,7 +118,9 @@ function spawnPiece(piece) {
     emptySquare.firstChild.firstChild.classList.add('white');
   }
 }
-
+function updateMoney(elementId, amount) {
+  document.getElementById(elementId).textContent = amount;
+}
 // Добавляем обработчики событий для кнопок
 document
   .getElementById('spawn-pawn')

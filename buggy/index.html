@@ -11,31 +11,33 @@
     <header class="top-bar">
         <h1>ㅤㅤㅤㅤㅤ</h1>
     </header>
-    <!-- Фоновая музыка -->
     <div id="controls">
-        <button id="spawn-pawn">Pawn</button>
-        <button id="spawn-rook">Rook</button>
-        <button id="spawn-knight">Knight</button>
-        <button id="spawn-bishop">Bishop</button>
-        <button id="spawn-queen">Queen</button>
+        <button id="spawn-pawn">Pawn3R</button>
+        <button id="spawn-rook">Rook7R</button>
+        <button id="spawn-knight">Knight5R</button>
+        <button id="spawn-bishop">Bishop5R</button>
+        <button id="spawn-queen">Queen11R</button>
       </div>
 
       <audio id="background-music" loop autoplay>
-        <source id="music-source" src="music1.mp3" type="audio/mpeg">
+        <source id="music-source" src="music/music1.mp3" type="audio/mpeg">
     </audio>
     <div class="control-panel">
         <div class="button-group">
             <button onclick="toggleMusic()">On/Off</button>
-            <button onclick="changeTrack(-1)">&#60;</button>
-            <button onclick="changeTrack(1)">&#62;</button>
         </div>
         <div class="volume-control">
             <label for="volume-control">Volume:</label>
-            <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
+            <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.3">
         </div>
     </div>
  
     <div id="gameboard"></div>
+
+    <div class="money">
+      <p>Black: <span id="moneyBlack">100</span> rubles</p>
+      <p>White: <span id="moneyWhite">100</span> rubles</p>
+  </div>
 
     <p>It is <span id="player"></span>'s go.</p>
     <p id="info-display"></p>
