@@ -27,6 +27,7 @@ body {
   position: fixed; 
   top: 0; 
   width: 100%; 
+  max-height: 12%;
   z-index: 1000; 
   background-size: 30px 30px; 
   overflow: hidden;
@@ -133,12 +134,14 @@ main {
 
 
 #gameboard {
-  width: 480px;
-  height: 480px;
+  max-width: 480px;
+  max-height: 480px;
   background-color: black;
   display: flex;
   flex-wrap: wrap;
+  box-sizing: border-box;
 }
+
 
 
 .square {
