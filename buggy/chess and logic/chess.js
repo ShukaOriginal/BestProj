@@ -5,13 +5,20 @@ const width = 8;
 let playerGo = 'black';
 playerDisplay.textContent = 'black';
 const starterRow = [8, 9, 10, 11, 12, 13, 14, 15];
-let moneyWhite = 11;
 const prices = {
   pawn: 3,
   rook: 7,
   knight: 5,
   bishop: 5,
   queen: 11,
+};
+
+const pieceValues = {
+  pawn: 1,
+  knight: 3,
+  bishop: 3,
+  rook: 5,
+  queen: 9,
 };
 
 const pricesUpgrade = {
@@ -21,8 +28,10 @@ const pricesUpgrade = {
     queen: 9,
   };
 
-
+let moneyWhite = 11;
 let moneyBlack = 11;
+document.getElementById('moneyBlack').textContent = moneyBlack;
+document.getElementById('moneyWhite').textContent = moneyWhite;
 //--
 // prettier-ignore
 const startPieces = [
@@ -91,10 +100,6 @@ function spawnPiece(piece) {
     }
     moneyWhite -= prices[piece];
     updateMoney('moneyWhite', moneyWhite);
-  }
-  function dragStart(e) {
-    startPositionId = e.target.parentNode.getAttribute('square-id');
-    draggedELement = e.target;
   }
 
   const tempDiv = document.createElement('div');
@@ -182,6 +187,17 @@ function dragDrop(e) {
   const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo);
   if (correctGo) {
     if (takenByOpponent && valid) {
+      const takenPieceId = e.target.id;
+      console.log(`${takenByOpponent} сюда смотри`)
+      const pieceValue = pieceValues[takenPieceId];
+      if (playerGo === 'black') {
+        moneyBlack += pieceValue;
+        updateMoney('moneyBlack', moneyBlack);
+      } else if (playerGo === 'white') {
+        moneyWhite += pieceValue;
+        updateMoney('moneyWhite', moneyWhite);
+      }
+
       e.target.parentNode.append(draggedELement);
       e.target.remove();
       checkForWin();
