@@ -4,6 +4,7 @@ let running1 = false;
 let running2 = false;
 let timerInterval1;
 let timerInterval2;
+let playWithTimer = false;
 
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -17,6 +18,8 @@ function updateDisplay() {
 }
 
 function startTimer(player) {
+    if (!playWithTimer) return;
+
     if (player === 1) {
         if (!running1) {
             running1 = true;
@@ -61,6 +64,26 @@ function toggleTimer(player) {
         startTimer(1);
     } else if (player === 2) {
         startTimer(2);
+    }
+}
+
+function togglePlayMode() {
+    const playWithTimerSelect = document.getElementById('play-with-timer');
+    playWithTimer = playWithTimerSelect.value === 'yes';
+
+    const timersDiv = document.getElementById('timers');
+    if (playWithTimer) {
+        timersDiv.style.display = 'block';
+        updateDisplay();
+    } else {
+        timersDiv.style.display = 'none';
+        clearInterval(timerInterval1);
+        clearInterval(timerInterval2);
+        running1 = false;
+        running2 = false;
+        time1 = 300;
+        time2 = 300;
+        updateDisplay();
     }
 }
 
