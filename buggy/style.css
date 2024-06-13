@@ -7,16 +7,6 @@ body {
   margin: 0;
   background-color: linen;
 }
-container {
-  background-color: white;
-  width: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
 main-content {
   z-index: 1; 
   display: flex;
