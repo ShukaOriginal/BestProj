@@ -19,6 +19,7 @@ const pieceValues = {
   bishop: 3,
   rook: 5,
   queen: 9,
+  king: 0,
 };
 
 const pricesUpgrade = {
