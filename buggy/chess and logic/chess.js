@@ -72,12 +72,20 @@ function spawnPiece(piece) {
       return;
     }
     moneyBlack -= prices[piece];
-  } else if (playerGo === 'white') {
+    updateMoney('moneyBlack', moneyBlack);
+ }
+
+  else if (playerGo === 'white') {
     if (moneyWhite < prices[piece]) {
       alert('нет хватает:(');
       return;
     }
     moneyWhite -= prices[piece];
+    updateMoney('moneyWhite', moneyWhite);
+  }
+  function dragStart(e) {
+    startPositionId = e.target.parentNode.getAttribute('square-id');
+    draggedELement = e.target;
   }
 
   const tempDiv = document.createElement('div');
@@ -110,7 +118,9 @@ function spawnPiece(piece) {
     emptySquare.firstChild.firstChild.classList.add('white');
   }
 }
-
+function updateMoney(elementId, amount) {
+  document.getElementById(elementId).textContent = amount;
+}
 // Добавляем обработчики событий для кнопок
 document
   .getElementById('spawn-pawn')
