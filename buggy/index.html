@@ -8,15 +8,10 @@
     <link rel="stylesheet" href="musica.css">
 </head>
 <body>
-    <header>
-        <img src="шапка.png" alt="Header Image" class="header-image">
+    <header class="top-bar">
+        <h1>ㅤㅤㅤㅤㅤ</h1>
     </header>
     <!-- Фоновая музыка -->
-    <audio id="background-music" loop autoplay>
-        <source id="music-source" src="music1.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
     <div id="controls">
         <button id="spawn-pawn">Pawn</button>
         <button id="spawn-rook">Rook</button>
@@ -25,7 +20,9 @@
         <button id="spawn-queen">Queen</button>
       </div>
 
-    <!-- Панель управления музыкой -->
+      <audio id="background-music" loop autoplay>
+        <source id="music-source" src="music1.mp3" type="audio/mpeg">
+    </audio>
     <div class="control-panel">
         <div class="button-group">
             <button onclick="toggleMusic()">On/Off</button>
@@ -37,17 +34,34 @@
             <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
         </div>
     </div>
-
-    <!-- Шахматная доска -->
+ 
     <div id="gameboard"></div>
 
-    <!-- Информация о ходе -->
     <p>It is <span id="player"></span>'s go.</p>
     <p id="info-display"></p>
+    <div class="messenger">
+        <div id="messenger-links" class="messenger-links">
+          <a title="Telegram" href="https://t.me/patato_patato">
+            <img src="PNG/Daniil.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/Mamkinrazboynik">
+            <img src="PNG/Dorzho.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/bigdayn">
+            <img src="PNG/Bogdan.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/skhozhu_s_uma">
+            <img src="PNG/Nikita.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/p_esenia">
+            <img src="PNG/Eseniya.png" alt="Messnger Icon">
+          </a>
+        </div>
+      </div>
 
-    <!-- Скрипты для шахматной логики и управления музыкой -->
     <script src="./chess and logic/piecec.js"></script>
     <script src="./chess and logic/chess.js"></script>
     <script src="Musica.js"></script>
+    <script src="telegram.js"></script>
 </body>
 </html>
