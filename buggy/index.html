@@ -11,53 +11,60 @@
     <header class="top-bar">
         <h1>ㅤㅤㅤㅤㅤ</h1>
     </header>
-    <div id="controls">
-        <button id="spawn-pawn">Pawn</button>
-        <button id="spawn-rook">Rook</button>
-        <button id="spawn-knight">Knight</button>
-        <button id="spawn-bishop">Bishop</button>
-        <button id="spawn-queen">Queen</button>
-        <label for="play-with-timer">Play with timer?</label>
-        <select id="play-with-timer" onchange="togglePlayMode()">
+    <div class="info-panel">
+      <div class="line1">
+        <div class="controls" id="controls">
+          <button id="spawn-pawn">Pawn</button>
+          <button id="spawn-rook">Rook</button>
+          <button id="spawn-knight">Knight</button>
+          <button id="spawn-bishop">Bishop</button>
+          <button id="spawn-queen">Queen</button>
+          <label for="play-with-timer">Play with timer?</label>
+          <select id="play-with-timer" onchange="togglePlayMode()">
+        </div>
+        <div>
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+          </select>
+        </div>
+        <div id="timers" style="display: none;">
+            <div class="container-timer containerW">
+                <div class="white-timer" id="timer1">05:00</div>
+                <div class="button-container">
+                    <button onclick="toggleTimer(1)">Player 1</button>
+                </div>
+                <div class="empty-block"></div>
+            </div>
+            <div class="container-timer containerB">
+                <div class="empty-block"></div>
+                <div class="black-timer" id="timer2">05:00</div>
+                <div class="button-container">
+                    <button onclick="toggleTimer(2)">Player 2</button>
+                </div>
+            </div>
+        </div>
       </div>
-      <div>
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-        </select>
-    </div>
-    <div id="timers" style="display: none;">
-        <div class="container-timer containerW">
-            <div class="white-timer" id="timer1">05:00</div>
-            <div class="button-container">
-                <button onclick="toggleTimer(1)">Player 1</button>
-            </div>
-            <div class="empty-block"></div>
+      <div class="line2">
+        <div id ="shop">
+          <p>Цена фигур</p>
+          <p>Пешка - 3 rubles </p>
+          <p>Конь - 5 rubles</p>
+          <p>Слон - 5 rubles</p>
+          <p>Ладья - 7 rubles</p>
+          <p>Ферзь - 11 rubles</p>
         </div>
-        <div class="container-timer containerB">
-            <div class="empty-block"></div>
-            <div class="black-timer" id="timer2">05:00</div>
-            <div class="button-container">
-                <button onclick="toggleTimer(2)">Player 2</button>
-            </div>
-        </div>
+        <div id ="Upgraid">
+          <p>Улучшить пешку</p>
+          <p>Конь - 2 rubles</p>
+          <p>Слон - 2 rubles</p>
+          <p>Ладья - 4 rubles</p>
+          <p>Ферзь - 9 rubles</p>
+        </div> 
+      </div>
+      
     </div>
-    <div id ="shop">
-      <p>Цена фигур</p>
-      <p>Пешка - 3 rubles </p>
-      <p>Конь - 5 rubles</p>
-      <p>Слон - 5 rubles</p>
-      <p>Ладья - 7 rubles</p>
-      <p>Ферзь - 11 rubles</p>
-    </div>
-    <div id ="Upgraid">
-      <p>Улучшить пешку</p>
-      <p>Конь - 2 rubles</p>
-      <p>Слон - 2 rubles</p>
-      <p>Ладья - 4 rubles</p>
-      <p>Ферзь - 9 rubles</p>
-    </div>
-      <audio id="background-music" loop autoplay>
-        <source id="music-source" src="music/music1.mp3" type="audio/mpeg">
+    <audio id="background-music" loop autoplay>
+      <source id="music-source" src="music/music1.mp3" type="audio/mpeg">
     </audio>
     <div class="control-panel">
         <div class="button-group">
