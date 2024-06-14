@@ -1,2 +1,1 @@
-# BestProj
-https://lichess.org/eBINkMSt
+#BestProj
