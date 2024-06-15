@@ -1,101 +1,40 @@
-/* Центрируем доску на экране */
+/* Стиль для body */
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: linen;
-}
-main-content {
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/*Шапка*/
-body {
-  margin: 0;
   font-family: Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(45deg, #000000, #990000, #000000);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
-.top-bar {
-  background-color: #cf0000;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  position: fixed;
+/* Новый фон для body */
+body::before {
+  content: "";
+  position: absolute;
   top: 0;
-  width: 100%;
-  max-height: 12%;
-  z-index: 1000;
-  background-size: 30px 30px;
-  overflow: hidden;
-}
-.top-bar::before,
-.top-bar::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background-color: white;
-  z-index: 0;
-}
-.site-title {
-  background-color: rgba(0, 0, 0, 0.5);
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 24px;
-  position: relative;
-  z-index: 1;
-}
-.top-bar::before {
-  width: 15px;
-  height: 15px;
-  top: 10px;
-  left: 30px;
-  box-shadow: 100px 50px 0 0 white, 150px -10px 0 0 white, 1503px 25px 0 0 white,
-    250px 40px 0 0 white, 1241px -15px 0 0 white, 347px 35px 0 0 white,
-    1773px 20px 0 0 white, 450px -20px 0 0 white, 485px 51px 0 0 white,
-    1320px 30px 0 0 white, 580px 15px 0 0 white, 649px 58px 0 0 white,
-    698px -12px 0 0 white, 749px 40px 0 0 white, 817px 9px 0 0 white,
-    1661px -19px 0 0 white, 1108px 2px 0 0 white, 928px 0px 0 0 white,
-    999px -20px 0 0 white;
-}
-/* Второй набор кругов */
-.top-bar::after {
-  width: 15px;
-  height: 15px;
-  bottom: 10px;
-  right: 30px;
-  box-shadow: -150px 10px 0 0 white, -250px -15px 0 0 white,
-    -350px 25px 0 0 white, -450px -10px 0 0 white, -550px 30px 0 0 white,
-    -650px -15px 0 0 white, -750px 5px 0 0 white, -840px -25px 0 0 white,
-    -950px 15px 0 0 white;
-}
-.top-bar::after::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background-color: white;
-  z-index: 0;
-  width: 8px;
-  height: 8px;
-  top: 5px;
-  left: 15px;
-  box-shadow: 70px 25px 0 0 white, 120px 10px 0 0 white, 170px -15px 0 0 white,
-    220px 20px 0 0 white, 270px 35px 0 0 white, 320px -10px 0 0 white,
-    370px 30px 0 0 white, 420px 15px 0 0 white, 470px -5px 0 0 white,
-    520px 40px 0 0 white, 570px -20px 0 0 white, 620px 25px 0 0 white,
-    670px 5px 0 0 white, 720px 35px 0 0 white, 770px -15px 0 0 white,
-    820px 30px 0 0 white, 870px 20px 0 0 white, 920px -10px 0 0 white,
-    970px 25px 0 0 white, 1020px 15px 0 0 white;
-}
-main {
-  padding-top: 60px;
-  padding: 20px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('path-to-your-image/cards.png'), url('path-to-your-image/chips.png'), url('path-to-your-image/roulette.png'), url('path-to-your-image/dice.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.2; 
+  z-index: -1; 
 }
 
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Стили для #gameboard */
 #gameboard {
   max-width: 480px;
   max-height: 480px;
@@ -103,8 +42,10 @@ main {
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
+  z-index: 1;
 }
 
+/* Стили для .square */
 .square {
   height: 60px;
   width: 60px;
@@ -116,16 +57,16 @@ main {
   width: 50px;
   margin: 5px;
   position: relative;
-  z-index: -9;
+  z-index: 1;
 }
 
-/* Позиционируем элементы относительно */
+/* Позиционирование элементов */
 path {
   position: relative;
   z-index: -10;
 }
 
-/* Задаем относительное позиционирование фигур */
+/* Позиционирование фигур */
 .piece {
   position: relative;
   z-index: 9;
@@ -133,11 +74,11 @@ path {
 
 /* Цвета клеток */
 .beige {
-  background-color: rgb(110, 110, 98);
+  background-color: #f0d9b5;
 }
 
 .brown {
-  background-color: rgb(169, 43, 43);
+  background-color: #b58863;
 }
 
 /* Цвета фигур */
@@ -148,12 +89,15 @@ path {
 .white {
   fill: white;
 }
+
+/* Ссылки на мессенджеры */
 .messenger-links {
   position: fixed;
   bottom: 50px;
   left: 10px;
   display: flex;
   gap: 10px;
+  z-index: 10;
 }
 
 .messenger-links a {
@@ -171,31 +115,50 @@ path {
 .messenger-links a:hover img {
   transform: scale(1.1);
 }
+
+/* Стили для блока с деньгами */
 .money {
   left: 50px;
   flex-direction: column;
   justify-content: space-between;
-  height: 100 px;
-}
-#shop {
-  padding: 10px;
-  background-color: AntiqueWhite;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-#Upgraid {
-  padding: 10px;
-  background-color: AntiqueWhite;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  top: 240px;
+  left: 1200px;
+  position: absolute;
 }
 
+/* Стили для магазина */
+#shop {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8); 
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  top: 200px;
+  left: 140px;
+  position: absolute;
+}
+
+/* Стили для апгрейдов */
+#Upgraid {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8); 
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  top: 200px;
+  left: 340px;
+  position: absolute;
+}
+
+
+/* Стили для информационной панели */
 .info-panel {
   display: flex;
   flex-direction: column;
@@ -215,6 +178,7 @@ path {
   justify-content: space-around;
 }
 
+/* Стили для элементов управления */
 .controls {
   height: 3.5vh;
 }
