@@ -1,37 +1,38 @@
-const tracks = ['music1.mp3', 'music2.mp3', 'music3.mp3']; // Добавьте нужные треки сюда
-let currentTrackIndex = 0;
-const audio = document.getElementById('background-music');
-const musicSource = document.getElementById('music-source');
-const volumeControl = document.getElementById('volume-control');
+document.addEventListener("DOMContentLoaded", function() {
+    var music = document.getElementById("background-music");
+    var volumeControl = document.getElementById("volume-control");
+    var tracks = ["musss/1.mp3", "musss/2.mp3", "musss/3.mp3", "musss/4.mp3", "musss/5.mp3", "musss/6.mp3", "musss/7.mp3", "musss/8.mp3", "musss/9.mp3", "musss/10.mp3"]; // Add more tracks here
+    var currentTrackIndex = 0;
 
 // Функция для переключения музыки
-function changeTrack(direction) {
+window.changeTrack = function(direction) {
     currentTrackIndex += direction;
     if (currentTrackIndex < 0) {
         currentTrackIndex = tracks.length - 1;
     } else if (currentTrackIndex >= tracks.length) {
         currentTrackIndex = 0;
     }
-    musicSource.src = tracks[currentTrackIndex];
-    audio.load();
-    audio.play();
+    music.src = tracks[currentTrackIndex];
+
+    music.play();
 }
 
 // Функция для включения/выключения музыки
-function toggleMusic() {
-    if (audio.paused) {
-        audio.play();
+window.toggleMusic=function() {
+    if (music.paused) {
+        music.play();
     } else {
-        audio.pause();
+        music.pause();
     }
 }
 
 // Обработка изменения громкости
 volumeControl.addEventListener('input', function () {
-    audio.volume = volumeControl.value;
+    music.volume = volumeControl.value;
 });
 
 // Переключение на следующую музыку по окончанию текущей
-audio.addEventListener('ended', function () {
+music.addEventListener('ended', function () {
     changeTrack(1);
+});
 });

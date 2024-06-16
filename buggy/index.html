@@ -41,11 +41,13 @@
       
     </div>
     <audio id="background-music" loop autoplay>
-      <source id="music-source" src="music/music1.mp3" type="audio/mpeg">
+      <source src="musss/1.mp3", type="audio/mpeg">
     </audio>
     <div class="control-panel">
         <div class="button-group">
             <button onclick="toggleMusic()">On/Off</button>
+            <button onclick="changeTrack(-1)">&#60</button>
+            <button onclick="changeTrack(1)">&#62</button>
         </div>
         <div class="volume-control">
             <label for="volume-control">Volume:</label>
@@ -59,9 +61,10 @@
       <p>Black: <span id="moneyBlack"></span> rubles</p>
       <p>White: <span id="moneyWhite"></span> rubles</p>
     </div>
-
+    <div class="playergo">
     <p>It is <span id="player"></span>'s go.</p>
     <p id="info-display"></p>
+    </div>
 
     <div>
       <label for="play-with-timer">Play with timer?</label>
@@ -81,6 +84,8 @@
           <div class="empty-block"></div>
           <div class="black-timer" id="timer1">05:00</div>
           <div class="button-container">
+          </div>
+          </div>
           </div>
     
     <div class="messenger">
