@@ -159,6 +159,7 @@ allSquares.forEach((square) => {
   square.addEventListener('dragstart', dragStart);
   square.addEventListener('dragover', dragOver);
   square.addEventListener('drop', dragDrop);
+  square.addEventListener('click', handleSquareClick);
 });
 
 let startPositionId;
@@ -219,45 +220,77 @@ function dragDrop(e) {
   }
 }
 
+document
+  .getElementById('upgrade-pawn')
+  .addEventListener('click', enablePromotionMode);
+
 function enablePromotionMode() {
-    promotionMode = true;
-    infoDisplay.textContent = 'Выберите пешку для улучшения.';
-    console.log('Promotion mode enabled');
+  promotionMode = true;
+  infoDisplay.textContent = 'Выберите пешку для улучшения.';
+  console.log('Promotion mode enabled');
+}
+  
+function handleSquareClick(e) {
+  if (!promotionMode) return;
+
+  let pieceElement;
+  if (e.target.classList.contains('piece') && e.target.id === 'pawn') {
+    pieceElement = e.target;
+  } else if (e.target.closest('.piece') && e.target.closest('.piece').id === 'pawn') {
+    pieceElement = e.target.closest('.piece');
+  } else {
+    console.log('Clicked element is not a pawn');
+    return;
   }
-  
-  function handleSquareClick(e) {
-    if (!promotionMode) return;
-    const pieceElement = e.target.firstChild;
-    console.log('Square clicked', e.target);
-    if (pieceElement && pieceElement.innerHTML.includes('pawn')) {
-      console.log('Pawn clicked for promotion');
-      const promoteTo = prompt('Улучшить до: knight, bishop, rook, или queen?');
-      if (promoteTo && pricesUpgrade[promoteTo] && confirm(`Это будет стоить ${pricesUpgrade[promoteTo]} пешек. Продолжить?`)) {
-        if (playerGo === 'black' && moneyBlack >= pricesUpgrade[promoteTo]) {
-          moneyBlack -= pricesUpgrade[promoteTo];
-        } else if (playerGo === 'white' && moneyWhite >= pricesUpgrade[promoteTo]) {
-          moneyWhite -= pricesUpgrade[promoteTo];
-        } else {
-          alert('Не хватает пешек.');
-          return;
-        }
-  
-        pieceElement.innerHTML = promoteTo === 'knight' ? knight :
-                                 promoteTo === 'bishop' ? bishop :
-                                 promoteTo === 'rook' ? rook : queen;
-  
-        pieceElement.firstChild.setAttribute('draggable', true);
-        pieceElement.firstChild.classList.add('piece');
-        pieceElement.firstChild.classList.add(playerGo);
-        promotionMode = false;
-        infoDisplay.textContent = '';
-        console.log('Pawn promoted to', promoteTo);
-      }
+
+  console.log('Pawn clicked for promotion');
+  const promoteTo = prompt('Улучшить до: knight, bishop, rook, или queen?');
+  if (promoteTo && pricesUpgrade[promoteTo] && confirm(`Это будет стоить ${pricesUpgrade[promoteTo]} rubles. Продолжить?`)) {
+    if (playerGo === 'black' && moneyBlack >= pricesUpgrade[promoteTo]) {
+      moneyBlack -= pricesUpgrade[promoteTo];
+      updateMoney('moneyBlack', moneyBlack);
+    } else if (playerGo === 'white' && moneyWhite >= pricesUpgrade[promoteTo]) {
+      moneyWhite -= pricesUpgrade[promoteTo];
+      updateMoney('moneyWhite', moneyWhite);
     } else {
-      console.log('Clicked element is not a pawn');
+      alert('Не хватает rubles.');
+      return;
     }
+
+    const tempDiv = document.createElement('div');
+    let pieceContent;
+
+    if (promoteTo === 'knight') {
+      pieceContent = knight;
+    } else if (promoteTo === 'bishop') {
+      pieceContent = bishop;
+    } else if (promoteTo === 'rook') {
+      pieceContent = rook;
+    } else if (promoteTo === 'queen') {
+      pieceContent = queen;
+    } else {
+      alert('Неверный тип фигуры.');
+      return;
+    }
+
+    tempDiv.innerHTML = pieceContent;
+    const newPiece = tempDiv.firstChild;
+    newPiece.setAttribute('draggable', true);
+    newPiece.classList.add('piece');
+
+    if (playerGo === 'black') {
+      newPiece.firstChild.classList.add('black');
+    } else if (playerGo === 'white') {
+      newPiece.firstChild.classList.add('white');
+    }
+
+    pieceElement.parentNode.replaceChild(newPiece, pieceElement);
+
+    promotionMode = false;
+    infoDisplay.textContent = '';
+    console.log('Pawn promoted to', promoteTo);
   }
-  
+}
 
 let kingHasMoved = false;
 let rookHasMoved = { left: false, right: false };
