@@ -1,3 +1,4 @@
+/* Центрируем доску на экране */
 /* Стиль для body */
 body {
   display: flex;
@@ -34,7 +35,20 @@ body::before {
   100% { background-position: 0% 50%; }
 }
 
-/* Стили для #gameboard */
+main-content {
+  z-index: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  padding-top: 60px; 
+  padding: 20px; 
+}
+
+
+
 #gameboard {
   max-width: 480px;
   max-height: 480px;
@@ -42,31 +56,32 @@ body::before {
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
-  z-index: 1;
 }
 
-/* Стили для .square */
+
+
 .square {
   height: 60px;
   width: 60px;
   position: relative;
 }
 
+
 .square svg {
   height: 50px;
   width: 50px;
   margin: 5px;
   position: relative;
-  z-index: 1;
+  z-index: -9;
 }
 
-/* Позиционирование элементов */
+/* Позиционируем элементы относительно */
 path {
   position: relative;
   z-index: -10;
 }
 
-/* Позиционирование фигур */
+/* Задаем относительное позиционирование фигур */
 .piece {
   position: relative;
   z-index: 9;
@@ -74,11 +89,11 @@ path {
 
 /* Цвета клеток */
 .beige {
-  background-color: #f0d9b5;
+  background-color: rgb(110, 110, 98);
 }
 
 .brown {
-  background-color: #b58863;
+  background-color: rgb(169, 43, 43);
 }
 
 /* Цвета фигур */
@@ -89,8 +104,6 @@ path {
 .white {
   fill: white;
 }
-
-/* Ссылки на мессенджеры */
 .messenger-links {
   position: fixed;
   bottom: 50px;
@@ -101,21 +114,20 @@ path {
 }
 
 .messenger-links a {
-  width: 50px;
-  height: 1px;
-  text-decoration: none;
+ width: 50px;
+ height: 1px;
+ text-decoration: none;
 }
 
 .messenger-links a img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
+ width: 100%;
+ height: auto;
+ transition: transform 0.3s ease;
 }
 
 .messenger-links a:hover img {
-  transform: scale(1.1);
+ transform: scale(1.1);
 }
-
 /* Стили для блока с деньгами */
 .money {
   left: 50px;
@@ -156,7 +168,6 @@ path {
   left: 340px;
   position: absolute;
 }
-
 
 /* Стили для информационной панели */
 .info-panel {

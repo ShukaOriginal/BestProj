@@ -5,6 +5,7 @@ let running2 = false;
 let timerInterval1;
 let timerInterval2;
 let playWithTimer = false;
+let currentPlayer = 1;
 
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -20,50 +21,54 @@ function updateDisplay() {
 function startTimer(player) {
     if (!playWithTimer) return;
 
-    if (player === 1) {
+    if (player === 2) {
+        clearInterval(timerInterval2);
+        running2 = false;
+
         if (!running1) {
             running1 = true;
-            clearInterval(timerInterval1);
+
             timerInterval1 = setInterval(() => {
                 time1--;
                 if (time1 <= 0) {
                     time1 = 0;
                     clearInterval(timerInterval1);
-                    alert("Player 1's time is up!");
+                    alert("Время белого игрока истекло!");
                     running1 = false;
                 }
                 updateDisplay();
             }, 1000);
-        } else {
-            clearInterval(timerInterval1);
-            running1 = false;
         }
-    } else if (player === 2) {
+    } else if (player === 1) {
+        clearInterval(timerInterval1);
+        running1 = false;
+
         if (!running2) {
             running2 = true;
-            clearInterval(timerInterval2);
+
             timerInterval2 = setInterval(() => {
                 time2--;
                 if (time2 <= 0) {
                     time2 = 0;
                     clearInterval(timerInterval2);
-                    alert("Player 2's time is up!");
+                    alert("Время чёрного игрока истекло!");
                     running2 = false;
                 }
                 updateDisplay();
             }, 1000);
-        } else {
-            clearInterval(timerInterval2);
-            running2 = false;
+
         }
     }
 }
 
-function toggleTimer(player) {
-    if (player === 1) {
-        startTimer(1);
-    } else if (player === 2) {
+function switchTurn() {
+    if (currentPlayer === 1) {
+        currentPlayer = 2;
         startTimer(2);
+    } else {
+        currentPlayer = 1;
+        startTimer(1);
+
     }
 }
 
@@ -88,3 +93,28 @@ function togglePlayMode() {
 }
 
 updateDisplay();
+
+function changePlayer() {
+  if (playerGo === 'black') {
+    reverseIds();
+    playerGo = 'white';
+    playerDisplay.textContent = 'white';
+  } else {
+    revertIds();
+    playerGo = 'black';
+    playerDisplay.textContent = 'black';
+  }
+  switchTurn();
+}
+
+function reverseIds() {
+  const allSquares = document.querySelectorAll('.square');
+  allSquares.forEach((square, i) =>
+    square.setAttribute('square-id', width * width - 1 - i)
+  );
+}
+
+function revertIds() {
+  const allSquares = document.querySelectorAll('.square');
+  allSquares.forEach((square, i) => square.setAttribute('square-id', i));
+}
