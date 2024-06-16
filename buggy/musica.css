@@ -1,7 +1,7 @@
 /* Основные настройки для панели управления музыкой */
 .control-panel {
     position: fixed;
-    top: 150px;
+    top: 10px;
     right: 15px;
     padding: 10px;
     background-color: #000000;
