@@ -21,7 +21,7 @@ function updateDisplay() {
 function startTimer(player) {
     if (!playWithTimer) return;
 
-    if (player === 1) {
+    if (player === 2) {
         clearInterval(timerInterval2);
         running2 = false;
 
@@ -33,13 +33,13 @@ function startTimer(player) {
                 if (time1 <= 0) {
                     time1 = 0;
                     clearInterval(timerInterval1);
-                    alert("Время игрока 1 истекло!");
+                    alert("Время белого игрока истекло!");
                     running1 = false;
                 }
                 updateDisplay();
             }, 1000);
         }
-    } else if (player === 2) {
+    } else if (player === 1) {
         clearInterval(timerInterval1);
         running1 = false;
 
@@ -51,7 +51,7 @@ function startTimer(player) {
                 if (time2 <= 0) {
                     time2 = 0;
                     clearInterval(timerInterval2);
-                    alert("Время игрока 2 истекло!");
+                    alert("Время чёрного игрока истекло!");
                     running2 = false;
                 }
                 updateDisplay();
