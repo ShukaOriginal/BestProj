@@ -6,39 +6,8 @@
     <title>Chess</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="musica.css">
-    <link rel="stylesheet" href="подсветка.css">
-    <!--<link rel="stylesheet" href="senya.css">-->
 </head>
 <body>
-
-  <div>
-    <label for="play-with-timer">Play with timer?</label>
-    <select id="play-with-timer" onchange="togglePlayMode()">
-        <option value="no">No</option>
-        <option value="yes">Yes</option>
-    </select>
-</div>
-<div id="timers" style="display: none;">
-    <div class="container-timer containerW">
-        <div class="white-timer" id="timer1">05:00</div>
-        <div class="button-container">
-            <button onclick="toggleTimer(1)">Player 1</button>
-        </div>
-        <div class="empty-block"></div>
-    </div>
-    <div class="container-timer containerB">
-        <div class="empty-block"></div>
-        <div class="black-timer" id="timer2">05:00</div>
-        <div class="button-container">
-            <button onclick="toggleTimer(2)">Player 2</button>
-        </div>
-    </div>
-</div>
-
-
-
-
-
     <header class="top-bar">
         <h1>ㅤㅤㅤㅤㅤ</h1>
     </header>
@@ -63,7 +32,7 @@
         </div>
     </div>
  
-    <div id="gameboard"></div> <!--class="possible-move" добавила-->
+    <div id="gameboard"></div>
 
     <div class="money">
       <p>Black: <span id="moneyBlack">100</span> rubles</p>
@@ -72,6 +41,27 @@
 
     <p>It is <span id="player"></span>'s go.</p>
     <p id="info-display"></p>
+    <div>
+      <label for="play-with-timer">Играть с таймером?</label>
+      <select id="play-with-timer" onchange="togglePlayMode()">
+          <option value="no">Нет</option>
+          <option value="yes">Да</option>
+      </select>
+    </div>
+    <div id="timers" style="display: none;">
+      <div class="container-timer containerW">
+          <div class="white-timer" id="timer2">05:00</div>
+          <div class="button-container">
+          </div>
+          <div class="empty-block"></div>
+      </div>
+      <div class="container-timer containerB">
+          <div class="empty-block"></div>
+          <div class="black-timer" id="timer1">05:00</div>
+          <div class="button-container">
+          </div>
+      </div>
+    </div>
     <div class="messenger">
         <div id="messenger-links" class="messenger-links">
           <a title="Telegram" href="https://t.me/patato_patato">
@@ -92,11 +82,10 @@
         </div>
       </div>
 
-    <script src="piecec.js"></script>
-    <script src="chess.js"></script>
+    <script src="./chess and logic/piecec.js"></script>
+    <script src="./chess and logic/chess.js"></script>
     <script src="Musica.js"></script>
     <script src="telegram.js"></script>
-    <script src="senya.js"></script>
-    <script src="подсветка.js"></script>
+    <script src="timer.js"></script>
 </body>
 </html>
