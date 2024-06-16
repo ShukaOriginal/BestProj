@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="senya.css">
 </head>
 <body>
-    <div>
-      <label for="play-with-timer">Play with timer?</label>
-      <select id="play-with-timer" onchange="togglePlayMode()">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-      </select>
+    <label for="play-with-timer">Play with timer?</label>
+    <select id="play-with-timer" onchange="togglePlayMode()">
   </div>
-  <div id="timers">
+  <div>
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+    </select>
+  </div>
+  <div id="timers" style="display: none;">
       <div class="container-timer containerW">
           <div class="white-timer" id="timer1">05:00</div>
           <div class="button-container">
@@ -31,6 +32,98 @@
           </div>
       </div>
   </div>
+</div>
   <script src="timer.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="musica.css">
+</head>
+<body>
+    <header class="top-bar">
+        <h1>ㅤㅤㅤㅤㅤ</h1>
+    </header>
+    <div id="controls">
+        <button id="spawn-pawn">Pawn3R</button>
+        <button id="spawn-rook">Rook7R</button>
+        <button id="spawn-knight">Knight5R</button>
+        <button id="spawn-bishop">Bishop5R</button>
+        <button id="spawn-queen">Queen11R</button>
+      </div>
+
+      <audio id="background-music" loop autoplay>
+        <source id="music-source" src="music/music1.mp3" type="audio/mpeg">
+    </audio>
+    <div class="control-panel">
+        <div class="button-group">
+            <button onclick="toggleMusic()">On/Off</button>
+        </div>
+        <div class="volume-control">
+            <label for="volume-control">Volume:</label>
+            <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.3">
+        </div>
+    </div>
+ 
+    <div id="gameboard"></div>
+
+    <div class="money">
+      <p>Black: <span id="moneyBlack">100</span> rubles</p>
+      <p>White: <span id="moneyWhite">100</span> rubles</p>
+  </div>
+
+    <p>It is <span id="player"></span>'s go.</p>
+    <p id="info-display"></p>
+    <div>
+      <label for="play-with-timer">Играть с таймером?</label>
+      <select id="play-with-timer" onchange="togglePlayMode()">
+          <option value="no">Нет</option>
+          <option value="yes">Да</option>
+      </select>
+    </div>
+    <div id="timers" style="display: none;">
+      <div class="container-timer containerW">
+          <div class="white-timer" id="timer2">05:00</div>
+          <div class="button-container">
+          </div>
+          <div class="empty-block"></div>
+      </div>
+      <div class="container-timer containerB">
+          <div class="empty-block"></div>
+          <div class="black-timer" id="timer1">05:00</div>
+          <div class="button-container">
+          </div>
+      </div>
+    </div>
+    <div class="messenger">
+        <div id="messenger-links" class="messenger-links">
+          <a title="Telegram" href="https://t.me/patato_patato">
+            <img src="PNG/Daniil.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/Mamkinrazboynik">
+            <img src="PNG/Dorzho.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/bigdayn">
+            <img src="PNG/Bogdan.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/skhozhu_s_uma">
+            <img src="PNG/Nikita.png" alt="Messnger Icon">
+          </a>
+          <a title="Telegram" href="https://t.me/p_esenia">
+            <img src="PNG/Eseniya.png" alt="Messnger Icon">
+          </a>
+        </div>
+      </div>
+
+    <script src="./chess and logic/piecec.js"></script>
+    <script src="./chess and logic/chess.js"></script>
+    <script src="Musica.js"></script>
+    <script src="telegram.js"></script>
+    <script src="timer.js"></script>
 </body>
 </html>
