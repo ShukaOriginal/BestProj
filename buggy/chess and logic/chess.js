@@ -244,76 +244,52 @@ function handleSquareClick(e) {
   }
 
   console.log('Pawn clicked for promotion');
-
-  // Создаем элемент <select> для выбора типа фигуры
-  const selectPromoteTo = document.createElement('select');
-  selectPromoteTo.innerHTML = `
-    <option value="knight">Knight</option>
-    <option value="bishop">Bishop</option>
-    <option value="rook">Rook</option>
-    <option value="queen">Queen</option>
-  `;
-
-  const confirmButton = document.createElement('button');
-  confirmButton.textContent = 'Confirm';
-
-  // Подтверждение выбора
-  confirmButton.addEventListener('click', () => {
-    const promoteTo = selectPromoteTo.value;
-    if (pricesUpgrade[promoteTo] && confirm(`Это будет стоить ${pricesUpgrade[promoteTo]} rubles. Продолжить?`)) {
-      if (playerGo === 'black' && moneyBlack >= pricesUpgrade[promoteTo]) {
-        moneyBlack -= pricesUpgrade[promoteTo];
-        updateMoney('moneyBlack', moneyBlack);
-      } else if (playerGo === 'white' && moneyWhite >= pricesUpgrade[promoteTo]) {
-        moneyWhite -= pricesUpgrade[promoteTo];
-        updateMoney('moneyWhite', moneyWhite);
-      } else {
-        alert('Не хватает rubles.');
-        return;
-      }
-
-      const tempDiv = document.createElement('div');
-      let pieceContent;
-
-      if (promoteTo === 'knight') {
-        pieceContent = knight;
-      } else if (promoteTo === 'bishop') {
-        pieceContent = bishop;
-      } else if (promoteTo === 'rook') {
-        pieceContent = rook;
-      } else if (promoteTo === 'queen') {
-        pieceContent = queen;
-      } else {
-        alert('Неверный тип фигуры.');
-        return;
-      }
-
-      tempDiv.innerHTML = pieceContent;
-      const newPiece = tempDiv.firstChild;
-      newPiece.setAttribute('draggable', true);
-      newPiece.classList.add('piece');
-
-      if (playerGo === 'black') {
-        newPiece.firstChild.classList.add('black');
-      } else if (playerGo === 'white') {
-        newPiece.firstChild.classList.add('white');
-      }
-
-      pieceElement.parentNode.replaceChild(newPiece, pieceElement);
-
-      promotionMode = false;
-      infoDisplay.textContent = '';
-      console.log('Pawn promoted to', promoteTo);
-
-      // Удаляем выбор после завершения улучшения
-      selectPromoteTo.remove();
-      confirmButton.remove();
+  const promoteTo = prompt('Улучшить до: knight, bishop, rook, или queen?');
+  if (promoteTo && pricesUpgrade[promoteTo] && confirm(`Это будет стоить ${pricesUpgrade[promoteTo]} rubles. Продолжить?`)) {
+    if (playerGo === 'black' && moneyBlack >= pricesUpgrade[promoteTo]) {
+      moneyBlack -= pricesUpgrade[promoteTo];
+      updateMoney('moneyBlack', moneyBlack);
+    } else if (playerGo === 'white' && moneyWhite >= pricesUpgrade[promoteTo]) {
+      moneyWhite -= pricesUpgrade[promoteTo];
+      updateMoney('moneyWhite', moneyWhite);
+    } else {
+      alert('Не хватает rubles.');
+      return;
     }
-  });
 
-  infoDisplay.textContent = 'Выберите тип фигуры для улучшения:';
-  infoDisplay.appendChild(selectPromoteTo);
-  infoDisplay.appendChild(confirmButton);
+    const tempDiv = document.createElement('div');
+    let pieceContent;
+
+    if (promoteTo === 'knight') {
+      pieceContent = knight;
+    } else if (promoteTo === 'bishop') {
+      pieceContent = bishop;
+    } else if (promoteTo === 'rook') {
+      pieceContent = rook;
+    } else if (promoteTo === 'queen') {
+      pieceContent = queen;
+    } else {
+      alert('Неверный тип фигуры.');
+      return;
+    }
+
+    tempDiv.innerHTML = pieceContent;
+    const newPiece = tempDiv.firstChild;
+    newPiece.setAttribute('draggable', true);
+    newPiece.classList.add('piece');
+
+    if (playerGo === 'black') {
+      newPiece.firstChild.classList.add('black');
+    } else if (playerGo === 'white') {
+      newPiece.firstChild.classList.add('white');
+    }
+
+    pieceElement.parentNode.replaceChild(newPiece, pieceElement);
+
+    promotionMode = false;
+    infoDisplay.textContent = '';
+    console.log('Pawn promoted to', promoteTo);
+  }
 }
 
 let kingHasMoved = false;
@@ -723,7 +699,9 @@ function checkIfValid(target) {
         startId - width + 1 === targetId ||
         startId - width - 1 === targetId
       ) {
+        if (playerGo === "black") {
         kingHasMoved = true;
+        }
         return true;
       }
 
