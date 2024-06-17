@@ -4,42 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="musica.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/musica.css">
+    <link rel="stylesheet" href="css/buyingFigures.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <header class="top-bar">
       
     </header>
-    <div class="info-panel">
-      <div class="line1">
-        <div class="controls" id="controls">
-          <button id="spawn-pawn">Pawn</button>
-          <button id="spawn-rook">Rook</button>
-          <button id="spawn-knight">Knight</button>
-          <button id="spawn-bishop">Bishop</button>
-          <button id="spawn-queen">Queen</button>
-          <button id="upgrade-pawn">Upgrade Pawn</button>
-      <div class="line2">
-        <div id ="shop">
-          <p>Цена фигур</p>
-          <p>Пешка - 3 rubles </p>
-          <p>Конь - 5 rubles</p>
-          <p>Слон - 5 rubles</p>
-          <p>Ладья - 7 rubles</p>
-          <p>Ферзь - 11 rubles</p>
-        </div>
-        <div id ="Upgraid">
-          <p>Улучшить пешку</p>
-          <p>Конь - 2 rubles</p>
-          <p>Слон - 2 rubles</p>
-          <p>Ладья - 4 rubles</p>
-          <p>Ферзь - 9 rubles</p>
-        </div> 
-      </div>
-      
-    </div>
+
     <audio id="background-music" loop autoplay>
       <source src="musss/1.mp3", type="audio/mpeg">
     </audio>
@@ -54,39 +28,81 @@
             <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.1">
         </div>
     </div>
- 
-    <div id="gameboard"></div>
 
-    <div class="money">
-      <p>Black: <span id="moneyBlack"></span> rubles</p>
-      <p>White: <span id="moneyWhite"></span> rubles</p>
-    </div>
-    <div class="playergo">
-    <p>It is <span id="player"></span>'s go.</p>
-    <p id="info-display"></p>
-    </div>
 
-    <div>
-      <label for="play-with-timer">Play with timer?</label>
-      <select id="play-with-timer" onchange="togglePlayMode()">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-      </select>
-    </div>
-    <div id="timers" style="display: none;">
-      <div class="container-timer containerW">
-          <div class="white-timer" id="timer2">05:00</div>
-          <div class="button-container">
-          </div>
-          <div class="empty-block"></div>
+    <div class="gameboard-container">
+      <div class="info-panel">
+        
+        <div class ="shop">
+          <p>Цена фигур</p>
+          <p>Пешка - 3 rubles </p>
+          <p>Конь - 5 rubles</p>
+          <p>Слон - 5 rubles</p>
+          <p>Ладья - 7 rubles</p>
+          <p>Ферзь - 11 rubles</p>
+        </div>
+        <div class ="Upgraid">
+          <p>Улучшить пешку</p>
+          <p>Конь - 2 rubles</p>
+          <p>Слон - 2 rubles</p>
+          <p>Ладья - 4 rubles</p>
+          <p>Ферзь - 9 rubles</p>
+        </div> 
+    </div> 
+    
+    <div class="gameboard-panel">
+      <div class="controls" id="controls">
+        <button id="spawn-pawn">Pawn</button>
+        <button id="spawn-rook">Rook</button>
+        <button id="spawn-knight">Knight</button>
+        <button id="spawn-bishop">Bishop</button>
+        <button id="spawn-queen">Queen</button>
+        <button id="upgrade-pawn">Upgrade Pawn</button>
       </div>
-      <div class="container-timer containerB">
-          <div class="empty-block"></div>
-          <div class="black-timer" id="timer1">05:00</div>
-          <div class="button-container">
+      <div id="gameboard"></div>
+      <div class="timer-panel">
+        <div>
+          <label for="play-with-timer">Play with timer?</label>
+          <select id="play-with-timer" onchange="togglePlayMode()">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+          </select>
+        </div>
+        <div id="timers" style="display: none;">
+          <div class="container-timer containerW">
+              <div class="white-timer" id="timer2">05:00</div>
+              <div class="button-container">
+              </div>
+              <div class="empty-block"></div>
           </div>
-          </div>
-          </div>
+          <div class="container-timer containerB">
+              <div class="empty-block"></div>
+              <div class="black-timer" id="timer1">05:00</div>
+              <div class="button-container">
+              </div>
+              </div>
+              </div>
+      </div>
+      
+    </div>
+    
+    <div class="right-panel">
+      <div class="money">
+        <p>Black: <span id="moneyBlack"></span> rubles</p>
+        <p>White: <span id="moneyWhite"></span> rubles</p>
+      </div>
+      <div class="playergo">
+      <p>It is <span id="player"></span>'s go.</p>
+      <p class="info-display"></p>
+      </div>
+    </div>
+    </div>
+
+    
+
+
+    
+    
     
     <div class="messenger">
         <div id="messenger-links" class="messenger-links">

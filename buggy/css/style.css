@@ -1,5 +1,6 @@
 /* Центрируем доску на экране */
 /* Стиль для body */
+
 body {
   display: flex;
   justify-content: center;
@@ -15,7 +16,7 @@ body {
 
 /* Новый фон для body */
 body::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -24,29 +25,45 @@ body::before {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: 0.2; 
-  z-index: -1; 
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.gameboard-container {
+  display: flex;
+  align-items: center;
+  height: 65vh;
+}
+
+.gameboard-panel {
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 main-content {
-  z-index: 1; 
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 main {
-  padding-top: 60px; 
-  padding: 20px; 
+  padding-top: 60px;
+  padding: 20px;
 }
-
-
 
 #gameboard {
   max-width: 480px;
@@ -55,16 +72,14 @@ main {
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
+  margin: 0 2vh 1vh 2vh;
 }
-
-
 
 .square {
   height: 60px;
   width: 60px;
   position: relative;
 }
-
 
 .square svg {
   height: 50px;
@@ -113,97 +128,99 @@ path {
 }
 
 .messenger-links a {
- width: 50px;
- height: 1px;
- text-decoration: none;
+  width: 50px;
+  height: 1px;
+  text-decoration: none;
 }
 
 .messenger-links a img {
- width: 100%;
- height: auto;
- transition: transform 0.3s ease;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
 }
 
 .messenger-links a:hover img {
- transform: scale(1.1);
+  transform: scale(1.1);
 }
 /* Стили для блока с деньгами */
 .money {
-  left: 50px;
   flex-direction: column;
   justify-content: space-between;
-  height: auto;
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  top: 390px;
-  left: 1250px;
-  position: absolute;
-  align-items:flex-start;
-  padding: 10px;
-}
-
-/* Стили для магазина */
-#shop {
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
+  padding: 0.1vh 1vh;
   align-items: flex-start;
-  top: 300px;
-  left: 240px;
-  position: absolute;
-  
-}
-
-/* Стили для апгрейдов */
-#Upgraid {
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  top: 300px;
-  left: 440px;
-  position: absolute;
+  margin-bottom: 2vh;
 }
 
 /* Стили для информационной панели */
 .info-panel {
   display: flex;
-  flex-direction: column;
-  margin: 2vh;
-  width: 31vw;
 }
 
-.info-panel .line1 {
+/* Стили для магазина */
+.shop {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
+  align-items: flex-start;
+  margin-right: 5vh;
 }
 
-.info-panel .line2 {
+/* Стили для апгрейдов */
+.Upgraid {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* Стили для элементов управления */
 .controls {
-  height: 3.5vh;
+  height: 4vh;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
+
+.controls button {
+  margin: 0.5vh 0.5vh;
+}
+
 .playergo {
+  display: flex;
+  padding: 1vh 1vh;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-#timers {
+
+.playergo p {
+  margin: 0;
+}
+
+.timer-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-timer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1vh;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  top: 600;
+  margin-top: 1vh;
 }
