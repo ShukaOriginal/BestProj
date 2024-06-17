@@ -220,14 +220,12 @@ function dragDrop(e) {
   }
 }
 
-document
-  .getElementById('upgrade-pawn')
-  .addEventListener('click', enablePromotionMode);
+document.getElementById('upgrade-pawn').addEventListener('click', enablePromotionMode);
 
 function enablePromotionMode() {
   promotionMode = true;
   infoDisplay.textContent = 'Выберите пешку для улучшения.';
-  console.log('Promotion mode enabled');
+  console.log('Режим улучшения активирован');
 }
 
 function handleSquareClick(e) {
@@ -242,16 +240,14 @@ function handleSquareClick(e) {
     return;
   }
 
-  // Проверка цвета пешки
   const pieceColor = pieceElement.firstChild.classList.contains('black') ? 'black' : 'white';
   if (pieceColor !== playerGo) {
     alert('Вы можете улучшать только свои пешки.');
     return;
   }
 
-  console.log('Pawn clicked for promotion');
+  console.log('Пешка выбрана для улучшения');
 
-  // Создаем элемент <select> для выбора типа фигуры
   const selectPromoteTo = document.createElement('select');
   selectPromoteTo.innerHTML = `
     <option value="knight">Конь</option>
@@ -261,11 +257,12 @@ function handleSquareClick(e) {
   `;
 
   const confirmButton = document.createElement('button');
-  confirmButton.textContent = 'Confirm';
+  confirmButton.textContent = 'Подтвердить';
 
-  // Подтверждение выбора
   confirmButton.addEventListener('click', () => {
     const promoteTo = selectPromoteTo.value;
+    console.log('Выбрано улучшение на:', promoteTo);
+
     if (pricesUpgrade[promoteTo] && confirm(`Это будет стоить ${pricesUpgrade[promoteTo]} rubles. Продолжить?`)) {
       if (playerGo === 'black' && moneyBlack >= pricesUpgrade[promoteTo]) {
         moneyBlack -= pricesUpgrade[promoteTo];
@@ -274,7 +271,7 @@ function handleSquareClick(e) {
         moneyWhite -= pricesUpgrade[promoteTo];
         updateMoney('moneyWhite', moneyWhite);
       } else {
-        alert('Не хватает :(');
+        alert('Не хватает денег :(');
         return;
       }
 
@@ -309,9 +306,8 @@ function handleSquareClick(e) {
 
       promotionMode = false;
       infoDisplay.textContent = '';
-      console.log('Pawn promoted to', promoteTo);
+      console.log('Пешка улучшена до:', promoteTo);
 
-      // Удаляем выбор после завершения улучшения
       selectPromoteTo.remove();
       confirmButton.remove();
     }

@@ -35,6 +35,11 @@ function startTimer(player) {
                     clearInterval(timerInterval1);
                     alert("Время белого игрока истекло!");
                     running1 = false;
+                    infoDisplay.innerHTML = 'Black player wins!';
+                    const allSquares = document.querySelectorAll('.square');
+                    allSquares.forEach((square) =>
+                      square.firstChild?.setAttribute('draggable', false)
+                    );
                 }
                 updateDisplay();
             }, 1000);
@@ -53,6 +58,11 @@ function startTimer(player) {
                     clearInterval(timerInterval2);
                     alert("Время чёрного игрока истекло!");
                     running2 = false;
+                    infoDisplay.innerHTML = 'White player wins!';
+                    const allSquares = document.querySelectorAll('.square');
+                    allSquares.forEach((square) =>
+                      square.firstChild?.setAttribute('draggable', false)
+                );
                 }
                 updateDisplay();
             }, 1000);
