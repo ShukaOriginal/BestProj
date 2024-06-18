@@ -5,36 +5,7 @@ const width = 8;
 let playerGo = 'black';
 playerDisplay.textContent = 'black';
 const starterRow = [8, 9, 10, 11, 12, 13, 14, 15];
-const prices = {
-  pawn: 3,
-  rook: 7,
-  knight: 5,
-  bishop: 5,
-  queen: 11,
-};
 
-const pieceValues = {
-  pawn: 1,
-  knight: 3,
-  bishop: 3,
-  rook: 5,
-  queen: 9,
-  king: 0,
-};
-
-const pricesUpgrade = {
-    knight: 2,
-    bishop: 2,
-    rook: 4,
-    queen: 9,
-  };
-
-let moneyWhite = 11;
-let moneyBlack = 11;
-document.getElementById('moneyBlack').textContent = moneyBlack;
-document.getElementById('moneyWhite').textContent = moneyWhite;
-//--
-// prettier-ignore
 const startPieces = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
     pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn, 
@@ -45,7 +16,6 @@ const startPieces = [
     pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn, 
     rook, knight, bishop, queen, king, bishop, knight, rook
 ]
-//создание доски с фигурами
 function createBoard() {
   startPieces.forEach((startPieces, i) => {
     const square = document.createElement('div');
@@ -72,108 +42,12 @@ createBoard();
 
 const allSquares = document.querySelectorAll('.square');
 
-function spawnPiece(piece) {
-  let emptySquare = [...allSquares].find((square) => !square.innerHTML.trim());
-  if (playerGo == 'white') {
-    emptySquare = [...allSquares]
-      .reverse()
-      .find((square) => !square.innerHTML.trim());
-  }
-
-  if (!emptySquare) {
-    alert('Нет свободных клеток.');
-    return;
-  }
-
-  if (playerGo === 'black') {
-    if (moneyBlack < prices[piece]) {
-      alert('нет хватает:(');
-      return;
-    }
-    moneyBlack -= prices[piece];
-    updateMoney('moneyBlack', moneyBlack);
- }
-
-  else if (playerGo === 'white') {
-    if (moneyWhite < prices[piece]) {
-      alert('нет хватает:(');
-      return;
-    }
-    moneyWhite -= prices[piece];
-    updateMoney('moneyWhite', moneyWhite);
-  }
-
-  const tempDiv = document.createElement('div');
-  let pieceContent;
-
-  if (piece === 'pawn') {
-    pieceContent = pawn;
-  } else if (piece === 'rook') {
-    pieceContent = rook;
-  } else if (piece === 'knight') {
-    pieceContent = knight;
-  } else if (piece === 'bishop') {
-    pieceContent = bishop;
-  } else if (piece === 'queen') {
-    pieceContent = queen;
-  } else {
-    alert('Неверный тип фигуры.');
-    return;
-  }
-
-  tempDiv.innerHTML = pieceContent;
-  const pieceElement = tempDiv.firstChild;
-  pieceElement.setAttribute('draggable', true);
-  pieceElement.classList.add('piece');
-  emptySquare.appendChild(pieceElement);
-
-  if (playerGo === 'black') {
-    emptySquare.firstChild.firstChild.classList.add('black');
-  } else if (playerGo === 'white') {
-    emptySquare.firstChild.firstChild.classList.add('white');
-  }
-}
-function updateMoney(elementId, amount) {
-  document.getElementById(elementId).textContent = amount;
-}
-// Добавляем обработчики событий для кнопок
-document
-  .getElementById('spawn-pawn')
-  .addEventListener('click', () => spawnPiece('pawn'));
-document
-  .getElementById('spawn-rook')
-  .addEventListener('click', () => spawnPiece('rook'));
-document
-  .getElementById('spawn-knight')
-  .addEventListener('click', () => spawnPiece('knight'));
-document
-  .getElementById('spawn-bishop')
-  .addEventListener('click', () => spawnPiece('bishop'));
-document
-  .getElementById('spawn-queen')
-  .addEventListener('click', () => spawnPiece('queen'));
-
-//индифмкатор ходов что выводит в консоль БРАУЗЕРА
-
-allSquares.forEach((square) => {
-  square.addEventListener('dragstart', dragStart);
-  square.addEventListener('dragover', dragOver);
-  square.addEventListener('drop', dragDrop);
-  square.addEventListener('click', handleSquareClick);
-});
-
 let startPositionId;
 let draggedELement;
 
 function dragStart(e) {
   startPositionId = e.target.parentNode.getAttribute('square-id');
   draggedELement = e.target;
-}
-
-//перетаскивание фигур
-
-function dragOver(e) {
-  e.preventDefault();
 }
 
 function dragOver(e) {
@@ -220,109 +94,11 @@ function dragDrop(e) {
   }
 }
 
-document.getElementById('upgrade-pawn').addEventListener('click', enablePromotionMode);
 
-function enablePromotionMode() {
-  promotionMode = true;
-  infoDisplay.textContent = 'Выберите пешку для улучшения.';
-  console.log('Режим улучшения активирован');
-}
-
-function handleSquareClick(e) {
-  if (!promotionMode) return;
-
-  let pieceElement;
-  if (e.target.classList.contains('piece') && e.target.id === 'pawn') {
-    pieceElement = e.target;
-  } else if (e.target.closest('.piece') && e.target.closest('.piece').id === 'pawn') {
-    pieceElement = e.target.closest('.piece');
-  } else {
-    return;
-  }
-
-  const pieceColor = pieceElement.firstChild.classList.contains('black') ? 'black' : 'white';
-  if (pieceColor !== playerGo) {
-    alert('Вы можете улучшать только свои пешки.');
-    return;
-  }
-
-  console.log('Пешка выбрана для улучшения');
-
-  const selectPromoteTo = document.createElement('select');
-  selectPromoteTo.innerHTML = `
-    <option value="knight">Конь</option>
-    <option value="bishop">Слон</option>
-    <option value="rook">Ладья</option>
-    <option value="queen">Ферзь</option>
-  `;
-
-  const confirmButton = document.createElement('button');
-  confirmButton.textContent = 'Подтвердить';
-
-  confirmButton.addEventListener('click', () => {
-    const promoteTo = selectPromoteTo.value;
-    console.log('Выбрано улучшение на:', promoteTo);
-
-    if (pricesUpgrade[promoteTo] && confirm(`Это будет стоить ${pricesUpgrade[promoteTo]} rubles. Продолжить?`)) {
-      if (playerGo === 'black' && moneyBlack >= pricesUpgrade[promoteTo]) {
-        moneyBlack -= pricesUpgrade[promoteTo];
-        updateMoney('moneyBlack', moneyBlack);
-      } else if (playerGo === 'white' && moneyWhite >= pricesUpgrade[promoteTo]) {
-        moneyWhite -= pricesUpgrade[promoteTo];
-        updateMoney('moneyWhite', moneyWhite);
-      } else {
-        alert('Не хватает денег :(');
-        return;
-      }
-
-      const tempDiv = document.createElement('div');
-      let pieceContent;
-
-      if (promoteTo === 'knight') {
-        pieceContent = knight;
-      } else if (promoteTo === 'bishop') {
-        pieceContent = bishop;
-      } else if (promoteTo === 'rook') {
-        pieceContent = rook;
-      } else if (promoteTo === 'queen') {
-        pieceContent = queen;
-      } else {
-        alert('Неверный тип фигуры.');
-        return;
-      }
-
-      tempDiv.innerHTML = pieceContent;
-      const newPiece = tempDiv.firstChild;
-      newPiece.setAttribute('draggable', true);
-      newPiece.classList.add('piece');
-
-      if (playerGo === 'black') {
-        newPiece.firstChild.classList.add('black');
-      } else if (playerGo === 'white') {
-        newPiece.firstChild.classList.add('white');
-      }
-
-      pieceElement.parentNode.replaceChild(newPiece, pieceElement);
-
-      promotionMode = false;
-      infoDisplay.textContent = '';
-      console.log('Пешка улучшена до:', promoteTo);
-
-      selectPromoteTo.remove();
-      confirmButton.remove();
-    }
-  });
-
-  infoDisplay.textContent = 'Выберите тип фигуры для улучшения:';
-  infoDisplay.appendChild(selectPromoteTo);
-  infoDisplay.appendChild(confirmButton);
-}
 
 let kingHasMoved = false;
-let rookHasMoved = { left: false, right: false };
 
-// при абстракции переименуй функцию
-const checkClearPath = (startId, targetId, step) => {
+const checkClearPathRook = (startId, targetId, step) => {
   for (let i = 1; i < Math.abs((targetId - startId) / step); i++) {
     if (
       document.querySelector(`[square-id="${startId + i * step}"]`).firstChild
@@ -403,7 +179,7 @@ function checkIfValid(target) {
       break;
     case 'bishop':
       if (
-        // Diagonal moves (top-left to bottom-right)
+       //Диагональные перемещения (с верхнего левого угла в нижний правый)
         (startId - width * 7 - 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width * 6 - 6 === targetId &&
@@ -418,7 +194,7 @@ function checkIfValid(target) {
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width - 1 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
-        // Diagonal moves (top-right to bottom-left)
+         //Диагональные перемещения (сверху справа в низ слева)
         (startId - width * 7 + 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width * 6 + 6 === targetId &&
@@ -433,7 +209,7 @@ function checkIfValid(target) {
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width + 1 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
-        // Diagonal moves (bottom-left to top-right)
+         //Диагональные перемещения (снизу-слева в верх-право)
         (startId + width * 7 - 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId + width * 6 - 6 === targetId &&
@@ -448,7 +224,7 @@ function checkIfValid(target) {
           checkClearPathBishop(startId, targetId, width)) ||
         (startId + width - 1 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
-        // Diagonal moves (bottom-right to top-left)
+        //Диагональные перемещения (справа снизу в верх слева)
         (startId + width * 7 + 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId + width * 6 + 6 === targetId &&
@@ -473,97 +249,95 @@ function checkIfValid(target) {
         // Вертикальные движения вверх
         (startId % width === targetId % width &&
           startId - width * 7 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 6 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 5 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 4 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 3 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 2 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         // Вертикальные движения вниз
         (startId % width === targetId % width &&
           startId + width * 7 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 6 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 5 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 4 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 3 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 2 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         // Горизонтальные движения вправо
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 7 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 6 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 5 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 4 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 3 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 2 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 1 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         // Горизонтальные движения влево
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 7 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 6 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 5 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 4 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 3 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 2 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
-        Math.floor(startId / width) ===
-          Math.checkClearPath(startId, targetId, -1)
+          checkClearPathRook(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)
       ) {
-        rookHasMoved = true;
         return true;
       }
     case 'queen':
       if (
-        // Diagonal moves (top-left to bottom-right)
+        //Диагональные перемещения (с верхнего левого угла в нижний правый)
         (startId - width * 7 - 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width * 6 - 6 === targetId &&
@@ -578,7 +352,7 @@ function checkIfValid(target) {
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width - 1 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
-        // Diagonal moves (top-right to bottom-left)
+        //Диагональные перемещения (сверху справа в низ слева)
         (startId - width * 7 + 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width * 6 + 6 === targetId &&
@@ -593,7 +367,7 @@ function checkIfValid(target) {
           checkClearPathBishop(startId, targetId, width)) ||
         (startId - width + 1 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
-        // Diagonal moves (bottom-left to top-right)
+        //Диагональные перемещения (снизу-слева в верх-право)
         (startId + width * 7 - 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId + width * 6 - 6 === targetId &&
@@ -608,7 +382,7 @@ function checkIfValid(target) {
           checkClearPathBishop(startId, targetId, width)) ||
         (startId + width - 1 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
-        // Diagonal moves (bottom-right to top-left)
+        //Диагональные перемещения (справа снизу в верх слева)
         (startId + width * 7 + 7 === targetId &&
           checkClearPathBishop(startId, targetId, width)) ||
         (startId + width * 6 + 6 === targetId &&
@@ -626,90 +400,89 @@ function checkIfValid(target) {
         // Вертикальные движения вверх
         (startId % width === targetId % width &&
           startId - width * 7 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 6 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 5 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 4 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 3 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width * 2 === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         (startId % width === targetId % width &&
           startId - width === targetId &&
-          checkClearPath(startId, targetId, -width)) ||
+          checkClearPathRook(startId, targetId, -width)) ||
         // Вертикальные движения вниз
         (startId % width === targetId % width &&
           startId + width * 7 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 6 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 5 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 4 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 3 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width * 2 === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         (startId % width === targetId % width &&
           startId + width === targetId &&
-          checkClearPath(startId, targetId, width)) ||
+          checkClearPathRook(startId, targetId, width)) ||
         // Горизонтальные движения вправо
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 7 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 6 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 5 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 4 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 3 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 2 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId + 1 === targetId &&
-          checkClearPath(startId, targetId, 1)) ||
+          checkClearPathRook(startId, targetId, 1)) ||
         // Горизонтальные движения влево
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 7 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 6 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 5 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 4 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 2 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)) ||
         (Math.floor(startId / width) === Math.floor(targetId / width) &&
           startId - 3 === targetId &&
-          checkClearPath(startId, targetId, -1)) ||
-        Math.floor(startId / width) ===
-          Math.checkClearPath(startId, targetId, -1)
+          checkClearPathRook(startId, targetId, -1)) ||
+          checkClearPathRook(startId, targetId, -1)
       ) {
         return true;
       }
@@ -736,8 +509,7 @@ function checkIfValid(target) {
         if (
           startId + 2 === targetId &&
           !document.querySelector(`[square-id="${startId + 1}"]`).firstChild &&
-          !document.querySelector(`[square-id="${startId + 2}"]`).firstChild &&
-          rookHasMoved.right === false
+          !document.querySelector(`[square-id="${startId + 2}"]`).firstChild
         ) {
           let rookStartId = startId + 3;
           let rookTargetId = startId + 1;
@@ -752,7 +524,6 @@ function checkIfValid(target) {
             .appendChild(rook);
 
           kingHasMoved = true;
-          rookHasMoved.right = true;
           return true;
         }
 
@@ -761,8 +532,7 @@ function checkIfValid(target) {
           startId - 2 === targetId &&
           !document.querySelector(`[square-id="${startId - 1}"]`).firstChild &&
           !document.querySelector(`[square-id="${startId - 2}"]`).firstChild &&
-          !document.querySelector(`[square-id="${startId - 3}"]`).firstChild &&
-          rookHasMoved.left === false
+          !document.querySelector(`[square-id="${startId - 3}"]`).firstChild
         ) {
           let rookStartId = startId - 4;
           let rookTargetId = startId - 1;
@@ -777,58 +547,10 @@ function checkIfValid(target) {
             .appendChild(rook);
 
           kingHasMoved = true;
-          rookHasMoved.left = true;
           return true;
         }
       }
       break;
   }
   return false;
-}
-
-//переключение игрока после хода
-
-function changePlayer() {
-  if (playerGo === 'black') {
-    reverseIds();
-    playerGo = 'white';
-    playerDisplay.textContent = 'white';
-  } else {
-    revertIds();
-    playerGo = 'black';
-    playerDisplay.textContent = 'black';
-  }
-}
-
-function reverseIds() {
-  const allSquares = document.querySelectorAll('.square');
-  allSquares.forEach((square, i) =>
-    square.setAttribute('square-id', width * width - 1 - i)
-  );
-}
-
-function revertIds() {
-  const allSquares = document.querySelectorAll('.square');
-  allSquares.forEach((square, i) => square.setAttribute('square-id', i));
-}
-
-// проверка хама и мата
-
-function checkForWin() {
-  const kings = Array.from(document.querySelectorAll('#king'));
-  console.log(kings);
-  if (!kings.some((king) => king.firstChild.classList.contains('white'))) {
-    infoDisplay.innerHTML = 'Black player wins!';
-    const allSquares = document.querySelectorAll('.square');
-    allSquares.forEach((square) =>
-      square.firstChild?.setAttribute('draggable', false)
-    );
-  }
-  if (!kings.some((king) => king.firstChild.classList.contains('black'))) {
-    infoDisplay.innerHTML = 'White player wins!';
-    const allSquares = document.querySelectorAll('.square');
-    allSquares.forEach((square) =>
-      square.firstChild?.setAttribute('draggable', false)
-    );
-  }
 }
