@@ -1,7 +1,6 @@
 
 function checkForWin() {
     const kings = Array.from(document.querySelectorAll('#king'));
-    console.log(kings);
     if (!kings.some((king) => king.firstChild.classList.contains('white'))) {
       infoDisplay.innerHTML = 'Black player wins!';
       const allSquares = document.querySelectorAll('.square');

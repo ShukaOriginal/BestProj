@@ -64,7 +64,6 @@ function dragDrop(e) {
   if (correctGo) {
     if (takenByOpponent && valid) {
       const takenPieceId = e.target.id;
-      console.log(`${takenByOpponent} сюда смотри`)
       const pieceValue = pieceValues[takenPieceId];
       if (playerGo === 'black') {
         moneyBlack += pieceValue;
@@ -140,10 +139,6 @@ function checkIfValid(target) {
     Number(target.parentNode.getAttribute('square-id'));
   const startId = Number(startPositionId);
   const piece = draggedELement.id;
-
-  console.log('Checking validity for piece:', piece);
-  console.log('Start position:', startId);
-  console.log('Target position:', targetId);
 
   switch (piece) {
     case 'pawn':
