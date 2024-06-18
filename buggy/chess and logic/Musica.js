@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     var music = document.getElementById("background-music");
     var volumeControl = document.getElementById("volume-control");
-    var tracks = ["musss/1.mp3", "musss/2.mp3", "musss/3.mp3", "musss/4.mp3", "musss/5.mp3", "musss/6.mp3", "musss/7.mp3", "musss/8.mp3", "musss/9.mp3", "musss/10.mp3"]; // Add more tracks here
+    var tracks = ["musss/1.mp3", "musss/2.mp3", "musss/3.mp3", "musss/4.mp3", "musss/5.mp3", "musss/6.mp3", "musss/7.mp3", "musss/8.mp3", "musss/9.mp3", "musss/10.mp3", "musss/11.mp3"]; // Add more tracks here
     var currentTrackIndex = 0;
 
 // Функция для переключения музыки
